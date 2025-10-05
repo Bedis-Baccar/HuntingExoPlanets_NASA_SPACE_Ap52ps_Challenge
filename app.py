@@ -9,7 +9,16 @@ import os
 import sys
 import math
 import random
+import logging
 from datetime import datetime
+
+# Configure logging for Cloud Run
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s [%(levelname)s] %(message)s',
+    stream=sys.stdout
+)
+logger = logging.getLogger(__name__)
 
 # Local utilities
 from utils.validate_csv import validate_csv
@@ -26,6 +35,10 @@ CORS(app)
 # Ensure upload folder exists
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
+logger.info("MPGA Flask application starting...")
+logger.info(f"Python version: {sys.version}")
+logger.info(f"PORT env: {os.getenv('PORT', 'not set')}")
+
 @app.route('/')
 def index():
     """Serve main application page"""
@@ -34,7 +47,8 @@ def index():
 @app.route('/health')
 def health():
     """Health check endpoint"""
-    return jsonify({"status": "ok", "version": "1.0.0"})
+    logger.info("Health check called")
+    return jsonify({"status": "healthy", "version": "1.0.0"}), 200
 
 @app.route('/facts')
 def facts():
@@ -236,4 +250,5 @@ def serve_robots():
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 8080))
     debug = os.getenv('FLASK_DEBUG', 'False').lower() == 'true'
+    logger.info(f"Starting Flask app on 0.0.0.0:{port} (debug={debug})")
     app.run(host='0.0.0.0', port=port, debug=debug)

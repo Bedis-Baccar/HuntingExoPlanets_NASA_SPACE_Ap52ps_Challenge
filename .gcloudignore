@@ -1,0 +1,27 @@
+# Ignore large or unnecessary files during Cloud Build
+.git
+.gitignore
+.vscode
+.idea
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+*.log
+logs/
+uploads/
+*.tmp
+*.swp
+*.swo
+node_modules/
+.DS_Store
+Thumbs.db
+README.md
+TESTING.md
+DEPLOY.md
+MIGRATION.md
