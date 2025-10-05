@@ -1,7 +1,7 @@
 Flask==3.0.0
 flask-cors==4.0.0
 Werkzeug==3.0.1
-gunicorn==21.2.0
+gunicorn==23.0.0  # upgraded to satisfy buildpack (functions-framework) requirement >=22
 requests==2.31.0
 
 # Scientific libraries for exoplanet analysis
