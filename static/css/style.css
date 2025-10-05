@@ -1,0 +1,178 @@
+/* Starry background using pure CSS for performance.
+   Generates layered starfields with subtle twinkle and drift.
+   No images or JS required. */
+
+:root {
+  --space-bg: #252627;
+  --star-color: #ffffff;
+  --star-color-alt: #fcecce;
+  --star-twinkle-1: 2.8s;
+  --star-twinkle-2: 4.2s;
+  --star-twinkle-3: 5.6s;
+}
+
+body.starry {
+  background: var(--space-bg);
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Container to hold layered pseudo-elements */
+body.starry::before,
+body.starry::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 2px; /* base size for star points */
+  height: 2px;
+  pointer-events: none;
+  z-index: -2;
+  background: transparent;
+  box-shadow: 
+    /* Layer 1: ~120 stars */
+    34vw 12vh var(--star-color),
+    12vw 22vh var(--star-color-alt),
+    78vw 35vh var(--star-color),
+    5vw 68vh var(--star-color-alt),
+    90vw 10vh var(--star-color),
+    54vw 74vh var(--star-color-alt),
+    23vw 40vh var(--star-color),
+    61vw 18vh var(--star-color-alt),
+    14vw 83vh var(--star-color),
+    48vw 55vh var(--star-color-alt),
+    72vw 65vh var(--star-color),
+    81vw 28vh var(--star-color-alt),
+    8vw 15vh var(--star-color),
+    29vw 72vh var(--star-color-alt),
+    44vw 9vh var(--star-color),
+    36vw 50vh var(--star-color-alt),
+    67vw 12vh var(--star-color),
+    16vw 60vh var(--star-color-alt),
+    93vw 48vh var(--star-color),
+    58vw 88vh var(--star-color-alt),
+    11vw 53vh var(--star-color),
+    26vw 25vh var(--star-color-alt),
+    40vw 31vh var(--star-color),
+    32vw 64vh var(--star-color-alt),
+    74vw 44vh var(--star-color),
+    85vw 70vh var(--star-color-alt),
+    19vw 19vh var(--star-color),
+    6vw 46vh var(--star-color-alt),
+    51vw 14vh var(--star-color),
+    63vw 57vh var(--star-color-alt),
+    70vw 22vh var(--star-color),
+    95vw 62vh var(--star-color-alt),
+    2vw 77vh var(--star-color),
+    37vw 91vh var(--star-color-alt),
+    57vw 5vh var(--star-color),
+    46vw 36vh var(--star-color-alt),
+    21vw 58vh var(--star-color),
+    9vw 33vh var(--star-color-alt),
+    17vw 11vh var(--star-color),
+    28vw 86vh var(--star-color-alt),
+    52vw 80vh var(--star-color),
+    62vw 47vh var(--star-color-alt),
+    88vw 24vh var(--star-color),
+    76vw 15vh var(--star-color-alt),
+    13vw 95vh var(--star-color),
+    41vw 78vh var(--star-color-alt),
+    55vw 29vh var(--star-color),
+    97vw 34vh var(--star-color-alt),
+    4vw 5vh var(--star-color),
+    10vw 27vh var(--star-color-alt),
+    18vw 44vh var(--star-color),
+    27vw 10vh var(--star-color-alt),
+    31vw 22vh var(--star-color),
+    39vw 14vh var(--star-color-alt),
+    45vw 41vh var(--star-color),
+    53vw 8vh var(--star-color-alt),
+    59vw 26vh var(--star-color),
+    66vw 38vh var(--star-color-alt),
+    71vw 52vh var(--star-color),
+    79vw 60vh var(--star-color-alt),
+    82vw 18vh var(--star-color),
+    87vw 50vh var(--star-color-alt),
+    92vw 29vh var(--star-color),
+    98vw 12vh var(--star-color-alt),
+    5vw 92vh var(--star-color),
+    15vw 66vh var(--star-color-alt),
+    22vw 74vh var(--star-color),
+    30vw 57vh var(--star-color-alt),
+    33vw 48vh var(--star-color),
+    42vw 63vh var(--star-color-alt),
+    47vw 71vh var(--star-color),
+    56vw 83vh var(--star-color-alt),
+    60vw 90vh var(--star-color),
+    68vw 76vh var(--star-color-alt),
+    73vw 86vh var(--star-color),
+    81vw 93vh var(--star-color-alt),
+    84vw 82vh var(--star-color),
+    91vw 67vh var(--star-color-alt),
+    96vw 55vh var(--star-color),
+    3vw 41vh var(--star-color-alt),
+    7vw 24vh var(--star-color),
+    12vw 37vh var(--star-color-alt),
+    20vw 52vh var(--star-color),
+    25vw 68vh var(--star-color-alt),
+    34vw 59vh var(--star-color),
+    38vw 45vh var(--star-color-alt),
+    49vw 20vh var(--star-color),
+    64vw 30vh var(--star-color-alt),
+    69vw 43vh var(--star-color),
+    75vw 54vh var(--star-color-alt),
+    83vw 63vh var(--star-color),
+    89vw 72vh var(--star-color-alt),
+    94vw 81vh var(--star-color),
+    8vw 88vh var(--star-color-alt);
+  animation: twinkle var(--star-twinkle-2) linear infinite;
+}
+
+/* Second layer: duplicated (parallax illusion via transform) */
+body.starry::after {
+  transform: scale(1.4);
+  filter: blur(0.5px) brightness(0.8);
+  animation: twinkle var(--star-twinkle-3) linear infinite reverse;
+}
+
+/* Additional floating layer using an inner fixed element */
+#starfield-overlay {
+  position: fixed;
+  inset: 0;
+  width: 3px;
+  height: 3px;
+  z-index: -1;
+  pointer-events: none;
+  background: transparent;
+  box-shadow:
+    12vw 6vh var(--star-color-alt),
+    18vw 12vh var(--star-color),
+    26vw 4vh var(--star-color-alt),
+    44vw 16vh var(--star-color),
+    52vw 6vh var(--star-color-alt),
+    61vw 11vh var(--star-color),
+    70vw 7vh var(--star-color-alt),
+    79vw 13vh var(--star-color),
+    88vw 9vh var(--star-color-alt),
+    95vw 4vh var(--star-color);
+  animation: drift 40s linear infinite;
+  opacity: .85;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.9; }
+  50% { opacity: 0.4; }
+}
+
+@keyframes drift {
+  0% { transform: translateY(0) translateX(0); }
+  50% { transform: translateY(-50px) translateX(25px); }
+  100% { transform: translateY(0) translateX(0); }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  body.starry::before,
+  body.starry::after,
+  #starfield-overlay { animation: none !important; }
+}

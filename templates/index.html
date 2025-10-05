@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+{% block content %}
+<section id="hero" class="relative container mx-auto px-4 py-16 md:py-20 text-center">
+    <div id="pluto-orbit-container" class="pointer-events-none absolute inset-0 -z-10"></div>
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6 leading-tight">Explore Distant Worlds</h2>
+        <p class="text-base sm:text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-6 md:mb-10 px-2">Upload stellar light curves and let MPGA search for transit signatures that reveal hidden exoplanets.</p>
+    <a href="#upload" class="inline-flex items-center gap-2 px-6 py-3 bg-space-primary rounded-md font-semibold hover:opacity-90 transition w-full sm:w-auto justify-center">Continuer</a>
+</section>
+
+<!-- Quick predict section removed: unified workflow now only via drag & drop interface -->
+
+<section id="mission" class="container mx-auto px-4 py-12 md:py-16">
+    <div class="grid gap-8 md:grid-cols-2 max-w-6xl mx-auto">
+        <article class="bg-gray-800/50 border border-gray-700 rounded-lg p-8 shadow-sm">
+            <h3 class="text-2xl font-semibold mb-4">Notre Mission</h3>
+            <p class="text-gray-300 leading-relaxed"> démocratiser l'analyse des courbes de lumière pour permettre aux chercheurs, étudiants et passionnés de détecter des exoplanètes de façon reproductible et transparente. Grâce à une interface simple et des visualisations interactives, MPGA rend l'exploration scientifique plus accessible.</p>
+        </article>
+        <article class="bg-gray-800/50 border border-gray-700 rounded-lg p-8 shadow-sm">
+            <h3 class="text-2xl font-semibold mb-4">Méthode de Transit</h3>
+            <p class="text-gray-300 leading-relaxed">Lorsqu'une planète passe devant son étoile, elle provoque une diminution minuscule mais mesurable de luminosité. En étudiant la profondeur, la durée et la périodicité de ces creux, nous pouvons inférer la taille, l'orbite et parfois même des indices atmosphériques de l'exoplanète.</p>
+        </article>
+    </div>
+</section>
+
+<section id="satellites" class="container mx-auto px-4 py-10 md:py-12">
+    <div class="max-w-4xl mx-auto">
+        <h3 class="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6">Sélection du Satellite</h3>
+        <fieldset class="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4" aria-label="Sélection du satellite">
+            <label class="flex items-center gap-3 bg-gray-800/60 border border-gray-700 rounded-md p-4 cursor-pointer hover:border-space-primary transition">
+                <input type="radio" name="mission-radio" value="kepler" class="accent-space-primary" onclick="document.getElementById('mission-select').value='kepler'; document.getElementById('mission-select').dispatchEvent(new Event('change'));">
+                <span class="font-medium">Kepler</span>
+            </label>
+            <label class="flex items-center gap-3 bg-gray-800/60 border border-gray-700 rounded-md p-4 cursor-pointer hover:border-space-primary transition">
+                <input type="radio" name="mission-radio" value="k2" class="accent-space-primary" onclick="document.getElementById('mission-select').value='k2'; document.getElementById('mission-select').dispatchEvent(new Event('change'));">
+                <span class="font-medium">K2</span>
+            </label>
+            <label class="flex items-center gap-3 bg-gray-800/60 border border-gray-700 rounded-md p-4 cursor-pointer hover:border-space-primary transition">
+                <input type="radio" name="mission-radio" value="tess" class="accent-space-primary" onclick="document.getElementById('mission-select').value='tess'; document.getElementById('mission-select').dispatchEvent(new Event('change'));">
+                <span class="font-medium">TESS</span>
+            </label>
+        </fieldset>
+    </div>
+</section>
+
+<section id="upload" class="container mx-auto px-4 py-14 md:py-16">
+    <div class="max-w-6xl mx-auto">
+        <h3 class="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8">Importer une Courbe de Lumière</h3>
+        <form id="upload-section" class="bg-gray-800/50 rounded-lg p-8 border border-gray-700" onsubmit="return false;" aria-describedby="upload-help">
+            <div class="grid gap-8 md:grid-cols-2">
+                <div>
+                    <label for="mission-select" class="block text-sm font-medium mb-2">Mission</label>
+                    <select id="mission-select" class="w-full bg-gray-700 border border-gray-600 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-space-primary" aria-required="true">
+                        <option value="">Sélectionnez...</option>
+                        <option value="kepler">Kepler</option>
+                        <option value="k2">K2</option>
+                        <option value="tess">TESS</option>
+                    </select>
+                    <p id="upload-help" class="text-xs mt-2 text-gray-400">Format attendu: colonnes time, flux (CSV).</p>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2">Fichier CSV</label>
+                    <div id="dropzone" class="border-2 border-dashed border-gray-600 rounded-lg p-8 text-center hover:border-space-primary transition cursor-pointer">
+                        <svg class="mx-auto h-10 w-10 text-gray-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" /></svg>
+                        <p class="text-sm text-gray-300">Déposer le fichier ici ou cliquer</p>
+                        <p class="text-xs text-gray-500 mt-1">Taille max: 10MB</p>
+                        <input type="file" id="file-input" accept=".csv" class="hidden" />
+                    </div>
+                    <div id="file-info" class="hidden mt-4 p-4 bg-gray-700 rounded-md text-sm flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <svg class="h-5 w-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            <span id="file-name" class="font-medium"></span>
+                            <span id="file-size" class="text-gray-400"></span>
+                        </div>
+                        <button id="remove-file" type="button" class="text-red-400 hover:text-red-300" aria-label="Retirer le fichier">
+                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-6 sm:mt-8">
+                <button id="analyze-btn" disabled class="w-full px-8 py-3 bg-space-primary hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed rounded-md font-semibold transition">Analyser</button>
+            </div>
+            <div id="loading-state" class="hidden mt-6 text-center">
+                <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-space-primary"></div>
+                <p class="mt-2 text-gray-400">Analyse en cours...</p>
+            </div>
+        </form>
+    </div>
+</section>
+
+<section id="results" class="container mx-auto px-4 py-16 hidden">
+    <div class="max-w-6xl mx-auto">
+        <h3 class="text-3xl font-bold mb-8">Résultats</h3>
+        <div id="results-section">
+            <div id="detection-card" class="bg-gray-800/50 rounded-lg p-8 mb-8 border border-gray-700">
+                <h4 class="text-2xl font-semibold mb-4">Détection</h4>
+                <div id="detection-result" class="space-y-4"></div>
+            </div>
+            <div class="bg-gray-800/50 rounded-lg p-8 border border-gray-700">
+                <h4 class="text-2xl font-semibold mb-4">Courbe de Lumière</h4>
+                <div id="light-curve-plot" class="w-full" style="height: 500px;"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="about" class="container mx-auto px-4 py-20">
+    <div class="max-w-4xl mx-auto prose prose-invert">
+        <h3>À Propos</h3>
+    <p>MPGA (Modern Planetary Graph Analysis) facilite l'analyse des courbes de lumière issues de missions spatiales (Kepler, K2, TESS) pour identifier des transits planétaires. Notre objectif est d'unifier la visualisation, la détection expérimentale et la reproduction scientifique.</p>
+    </div>
+</section>
+
+<section id="github" class="container mx-auto px-4 py-16">
+    <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 bg-gray-800/40 border border-gray-700 rounded-lg p-10">
+        <div>
+            <h3 class="text-2xl font-semibold mb-3">Code Source & Contributions</h3>
+            <p class="text-gray-300 mb-4 max-w-xl">Le projet est open-source. Explorez le code, ouvrez des issues ou proposez des améliorations.</p>
+            <a href="https://github.com/" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-6 py-3 bg-space-primary rounded-md font-medium hover:opacity-90 transition">GitHub ↗</a>
+        </div>
+        <div class="text-sm text-gray-400 max-w-sm">Transparence, traçabilité et collaboration sont au cœur de notre démarche.</div>
+    </div>
+</section>
+
+<section id="contact" class="container mx-auto px-4 py-16">
+    <div class="max-w-4xl mx-auto">
+        <h3 class="text-2xl font-semibold mb-6">Contact</h3>
+        <p class="text-gray-300 mb-6">Une question, une idée ou envie de collaborer ? Envoyez-nous un message.</p>
+    <form id="contact-form" class="grid md:grid-cols-2 gap-6">
+            <div class="md:col-span-1">
+                <label class="block text-sm mb-2" for="contact-name">Nom</label>
+                <input id="contact-name" type="text" required class="w-full bg-gray-700 border border-gray-600 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-space-primary" />
+            </div>
+            <div class="md:col-span-1">
+                <label class="block text-sm mb-2" for="contact-email">Email</label>
+                <input id="contact-email" type="email" required class="w-full bg-gray-700 border border-gray-600 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-space-primary" />
+            </div>
+            <div class="md:col-span-2">
+                <label class="block text-sm mb-2" for="contact-msg">Message</label>
+                <textarea id="contact-msg" rows="5" required class="w-full bg-gray-700 border border-gray-600 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-space-primary"></textarea>
+            </div>
+            <div class="md:col-span-2 flex items-center gap-4">
+                <button class="px-8 py-3 bg-space-primary rounded-md font-semibold hover:opacity-90 transition" type="submit" id="contact-submit">Envoyer</button>
+                <span id="contact-status" class="text-sm text-gray-400" aria-live="polite"></span>
+            </div>
+        </form>
+    </div>
+</section>
+
+<section id="newsletter" class="container mx-auto px-4 py-16">
+    <div class="max-w-3xl mx-auto text-center">
+        <h3 class="text-2xl font-semibold mb-4">Newsletter</h3>
+        <p class="text-gray-300 mb-6">Recevez des mises à jour sur les fonctionnalités, datasets et améliorations scientifiques.</p>
+        <form id="newsletter-form" class="flex flex-col sm:flex-row gap-4 justify-center">
+            <input name="email" type="email" required placeholder="Votre email" class="flex-1 min-w-[240px] bg-gray-700 border border-gray-600 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-space-primary" />
+            <button id="newsletter-submit" class="px-6 py-2 bg-space-primary rounded-md font-semibold hover:opacity-90 transition" type="submit">S'abonner</button>
+        </form>
+        <p id="newsletter-status" class="text-sm text-gray-400 mt-3" aria-live="polite"></p>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts_extra %}
+<script type="module" src="/static/js/pluto-orbit.js"></script>
+{% endblock %}

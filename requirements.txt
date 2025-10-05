@@ -1,0 +1,13 @@
+Flask==3.0.0
+flask-cors==4.0.0
+Werkzeug==3.0.1
+gunicorn==21.2.0
+requests==2.31.0
+
+# Scientific libraries for exoplanet analysis
+numpy==1.26.2
+pandas==2.1.4
+astropy==6.0.0
+
+# For any async operations if needed
+aiofiles==23.2.1
