@@ -1,4 +1,6 @@
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 import os
 from typing import Optional
@@ -22,14 +24,32 @@ async def health():
 async def env_check():
     return {"python": os.sys.version.split()[0]}
 
-@app.get("/")
-async def root():
-    return {
-        "service": "MPGA Backend",
-        "version": app.version,
-        "endpoints": ["/health", "/env-check", "/predict", "/docs", "/redoc"],
-        "message": "Welcome. Visit /docs for interactive API documentation."
-    }
+DIST_DIR = os.path.join(os.path.dirname(__file__), "dist")
+if os.path.isdir(DIST_DIR):
+    # Mount built frontend assets at root
+    app.mount("/", StaticFiles(directory=DIST_DIR, html=True), name="static")
+
+    @app.get("/index.html")
+    async def index_explicit():
+        return FileResponse(os.path.join(DIST_DIR, "index.html"))
+else:
+    @app.get("/")
+    async def root():
+        return {
+            "service": "MPGA Backend",
+            "version": app.version,
+            "endpoints": ["/health", "/env-check", "/predict", "/docs", "/redoc"],
+            "message": "Frontend build not found. Run 'npm run build'."
+        }
+
+@app.get("/{full_path:path}")
+async def spa_fallback(full_path: str):
+    """Serve index.html for unmatched routes when frontend is built (SPA fallback)."""
+    if os.path.isdir(DIST_DIR):
+        index_file = os.path.join(DIST_DIR, "index.html")
+        if os.path.isfile(index_file):
+            return FileResponse(index_file)
+    raise HTTPException(status_code=404, detail="Not Found")
 
 @app.post("/predict")
 async def predict(mission: str = Form(...), file: UploadFile = File(...), mock: Optional[bool] = Form(False)):
