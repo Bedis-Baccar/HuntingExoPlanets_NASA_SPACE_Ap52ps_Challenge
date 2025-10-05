@@ -29,15 +29,6 @@ RUN mkdir -p /tmp/uploads
 
 EXPOSE 8080
 
-HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
-  CMD python - <<'PY' || exit 1
-import urllib.request, json, sys
-try:
-    with urllib.request.urlopen('http://localhost:8080/health', timeout=3) as r:
-        import json; data=json.loads(r.read().decode());
-        sys.exit(0 if data.get('status')=='healthy' else 1)
-except Exception:
-    sys.exit(1)
-PY
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 CMD curl -fsS http://localhost:8080/health || exit 1
 
 CMD ["gunicorn", "--bind", "0.0.0.0:8080", "--workers", "2", "--threads", "4", "--timeout", "60", "app:app"]
