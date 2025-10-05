@@ -1,0 +1,16 @@
+name: mpga
+channels:
+  - defaults
+dependencies:
+  - python=3.11
+  - pip
+  - pip:
+      - astropy
+      - astroquery
+      - numpy
+      - pandas
+      - fastapi
+      - uvicorn[standard]
+      - httpx
+      - python-dotenv
+  - python-multipart

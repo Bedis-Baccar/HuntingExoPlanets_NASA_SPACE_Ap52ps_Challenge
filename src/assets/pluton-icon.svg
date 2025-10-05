@@ -1,0 +1,22 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="plutoTitle plutoDesc">
+  <title id="plutoTitle">Pluto Icon</title>
+  <desc id="plutoDesc">Textured dwarf planet with subtle terminator shading</desc>
+  <defs>
+    <radialGradient id="plutoFill" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(64 64) rotate(90) scale(60)">
+      <stop offset="0%" stop-color="#f9e4c0" />
+      <stop offset="55%" stop-color="#c99665" />
+      <stop offset="100%" stop-color="#80563e" />
+    </radialGradient>
+    <linearGradient id="terminator" x1="0" y1="0" x2="128" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#000" stop-opacity="0.55" />
+      <stop offset="45%" stop-color="#000" stop-opacity="0" />
+    </linearGradient>
+    <clipPath id="circleClip"><circle cx="64" cy="64" r="60"/></clipPath>
+  </defs>
+  <circle cx="64" cy="64" r="60" fill="url(#plutoFill)" stroke="#b83c2c" stroke-width="2" />
+  <g clip-path="url(#circleClip)" opacity="0.55">
+    <path d="M10 70c20 6 30-14 46-10 16 4 22 30 44 34 10 2 20-2 30-10" stroke="#b83c2c" stroke-opacity="0.25" stroke-width="6" stroke-linecap="round"/>
+    <path d="M0 40c18 10 36 6 54-6 18-12 28-8 38 2 10 10 20 14 36 12" stroke="#fcecce" stroke-opacity="0.18" stroke-width="4" stroke-linecap="round"/>
+  </g>
+  <circle cx="64" cy="64" r="60" fill="url(#terminator)" />
+</svg>

@@ -1,0 +1,26 @@
+# Dependencies
+node_modules
+*.log
+
+# Build output
+dist
+
+# Local env
+.env
+.env.*
+
+# Editor
+.vscode
+.DS_Store
+
+# Lock / state
+*.pid
+
+# Coverage
+coverage
+
+# Misc
+Thumbs.db
+
+# Three.js large raw assets (optional put originals elsewhere)
+# raw-assets/
