@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Make Pluto Great Again Logo" viewBox="0 0 420 120">
+  <title>Make Pluto Great Again</title>
+  <defs>
+    <linearGradient id="plutoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#b83c2c" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#b83c2c" stop-opacity="0.6" />
+    </linearGradient>
+  </defs>
+  <rect width="420" height="120" rx="14" fill="#252627" />
+  <!-- Pluto icon -->
+  <g transform="translate(40,60)">
+    <circle cx="0" cy="0" r="34" fill="url(#plutoGradient)" stroke="#fcecce" stroke-width="2" />
+    <circle cx="-10" cy="-8" r="8" fill="#fcecce" fill-opacity="0.18" />
+    <circle cx="12" cy="6" r="6" fill="#fcecce" fill-opacity="0.20" />
+  </g>
+  <!-- Text -->
+  <text x="90" y="52" font-family="Orbitron, 'Orbitron', sans-serif" font-size="30" fill="#fcecce" letter-spacing="2">MPGA</text>
+  <text x="90" y="88" font-family="Orbitron, 'Orbitron', sans-serif" font-size="16" fill="#b83c2c" letter-spacing="1.5">MAKE PLUTO GREAT AGAIN</text>
+</svg>

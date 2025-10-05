@@ -5,9 +5,15 @@ gunicorn==21.2.0
 requests==2.31.0
 
 # Scientific libraries for exoplanet analysis
-numpy==1.26.2
-pandas==2.1.4
-astropy==6.0.0
+numpy==1.26.4
+pandas==2.2.2
+astropy==6.1.2
 
-# For any async operations if needed
+# Optional (can remove if unused)
+astroquery==0.4.7
+
+# Async / file handling (keep minimal)
 aiofiles==23.2.1
+
+# Env utilities (optional if .env not needed)
+python-dotenv==1.0.1

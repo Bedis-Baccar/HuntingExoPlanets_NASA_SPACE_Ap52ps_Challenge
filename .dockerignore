@@ -1,0 +1,26 @@
+# Node
+node_modules
+npm-debug.log
+.yarn/cache
+
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+*.pytest_cache
+.venv
+.env
+.env.*
+
+# Git
+.git
+.gitignore
+
+# Build outputs
+/dist
+/build
+
+# Misc
+.DS_Store
+Thumbs.db

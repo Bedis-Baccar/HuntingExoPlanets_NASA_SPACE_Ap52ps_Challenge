@@ -221,16 +221,18 @@ This Flask app provides feature parity with the original React + Vite + FastAPI 
 | FastAPI | Flask |
 | uvicorn | gunicorn |
 
-## License
-
-MIT License - see LICENSE file
-
 ## Contributing
 
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes
 4. Submit a pull request
+
+The previous React + FastAPI implementation has been superseded by this unified Flask + vanilla JS stack. Historical artifacts (if any) are intentionally omitted from this README for clarity.
+
+## License
+
+MIT License - see LICENSE file
 
 ## Support
 
