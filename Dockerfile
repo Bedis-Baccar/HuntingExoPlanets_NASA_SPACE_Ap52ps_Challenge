@@ -5,6 +5,7 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci --no-audit --no-fund
 COPY . .
+COPY public/ /mpga
 RUN npm run build
 
 # Stage 2: Python backend + static serving
@@ -32,8 +33,8 @@ COPY backend_app.py ./
 # Copy built frontend from previous stage
 COPY --from=frontend-build /app/dist ./dist
 
-# (Optional) copy any additional runtime assets (models, etc.)
-COPY public/models ./dist/models
+# Copy ALL public assets to dist root (favicon, manifest, pluto.png, etc.)
+COPY --from=frontend-build /app/public/ ./dist/
 
 # Expose port for Cloud Run (expects $PORT env var)
 EXPOSE 8080

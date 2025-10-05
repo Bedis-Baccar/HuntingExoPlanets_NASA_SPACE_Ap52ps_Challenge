@@ -271,7 +271,7 @@ export default function PlutoOrbit({
         camera={{ position: [0, 25, 65], fov: 50 }}
         gl={{ antialias: true, alpha: true }}
         onCreated={({ gl }) => {
-          gl.outputEncoding = THREE.sRGBEncoding;
+          gl.outputColorSpace = THREE.SRGBColorSpace;
         }}
       >
         {!inline && <fog attach="fog" args={[ '#050506', 60, 180 ]} />}

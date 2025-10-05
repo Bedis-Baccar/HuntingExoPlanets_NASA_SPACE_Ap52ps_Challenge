@@ -1,0 +1,17 @@
+{
+  "name": "MPGA - Make Pluto Great Again",
+  "short_name": "MPGA",
+  "description": "Modern exoplanet light curve analysis and exploration platform",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#252627",
+  "theme_color": "#b83c2c",
+  "icons": [
+    {
+      "src": "/pluto.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
